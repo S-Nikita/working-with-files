@@ -35,21 +35,24 @@ def read_data():
 def get_shop_list_by_dishes(dishes, person_count):
     cook_book = read_data()
     shop_list = {}
-    for meal in cook_book.keys():
-        if meal in dishes:
+    for meal in dishes:
+        if meal in cook_book.keys():
             for i in range(len(cook_book[meal])):
                 ingridient_data = cook_book[meal][i]
                 ingridient = ingridient_data['ingredient_name']
-                quantity = int(ingridient_data['quantity']) * person_count
+                quantity = int(
+                    ingridient_data['quantity']) * person_count * dishes.count(meal)
                 measure = ingridient_data['measure']
+
                 shop_list[ingridient] = {
                     'measure': measure,
                     'quantity': quantity
                 }
+
     print(shop_list)
 
 
-get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
+get_shop_list_by_dishes(['Омлет', 'Омлет', 'Омлет', 'Запеченный картофель'], 2)
 
 
 # Задание №3 Составление файла
